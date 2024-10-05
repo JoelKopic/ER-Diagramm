@@ -1,0 +1,31 @@
+from graphviz import Digraph
+
+# Create a new directed graph
+er_diagram = Digraph('ER_Diagram', node_attr={'shape': 'box', 'style': 'rounded', 'fontsize': '10'})
+
+# Define entities
+er_diagram.node('Dozent', 'Dozent')
+er_diagram.node('Administrator', 'Administrator')
+er_diagram.node('Maintainer', 'Maintainer')
+er_diagram.node('App', 'App (Image)')
+er_diagram.node('Instanz', 'Instanz')
+er_diagram.node('Ressourcen', 'Ressourcen')
+er_diagram.node('Kurs', 'Kurs')
+
+# Define relationships
+er_diagram.edge('Dozent', 'Kurs', label='erstellt')
+er_diagram.edge('Kurs', 'Instanz', label='hat')
+er_diagram.edge('Instanz', 'App', label='basiert auf')
+er_diagram.edge('Administrator', 'Ressourcen', label='verwaltet')
+er_diagram.edge('Instanz', 'Ressourcen', label='nutzt')
+er_diagram.edge('Maintainer', 'App', label='aktualisiert')
+
+# Dozent specific actions
+er_diagram.edge('Dozent', 'Instanz', label='skaliert')
+er_diagram.edge('Dozent', 'Instanz', label='sieht Zusammenfassung')
+er_diagram.edge('Dozent', 'App', label='aktualisiert')
+
+# Save and render diagram
+er_diagram.render('/mnt/data/openstack_er_diagram', format='png', cleanup=True)
+
+'/mnt/data/openstack_er_diagram.png'
